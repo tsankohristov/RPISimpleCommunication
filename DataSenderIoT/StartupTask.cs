@@ -15,21 +15,16 @@ namespace DataSenderIoT
     {
         BackgroundTaskDeferral deferral;
         private ThreadPoolTimer timer;
-        private int counter = 0;
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             deferral = taskInstance.GetDeferral();
             timer = ThreadPoolTimer.CreatePeriodicTimer(Timer_Tick, TimeSpan.FromMilliseconds(1 * 1000));
-
-            SendSampleData();
-
         }
 
         private void Timer_Tick(ThreadPoolTimer timer)
         {
             SendSampleData();
-            ++counter;
         }
 
         private static void SendSampleData()
@@ -55,6 +50,7 @@ namespace DataSenderIoT
                 var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = null;
+
                 // ConfigurationManager.AppSettings not available
                 // response = httpClient.PostAsync(ConfigurationManager.AppSettings["serverAdress"] + "/api/data", stringContent).Result;
                 response = httpClient.PostAsync("http://win10dev:9000/api/data", stringContent).Result;
