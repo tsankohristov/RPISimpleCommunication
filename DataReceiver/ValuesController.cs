@@ -10,7 +10,6 @@ namespace DataReceiver
         public IEnumerable<string> Get()
         {
             Console.WriteLine("Get request received!");
-            
             //return some dummy data
             return new string[] { "Test", "Working" };
         }
@@ -19,12 +18,10 @@ namespace DataReceiver
         public string Get(int id)
         {
             Console.WriteLine("Get request received for ID {0}!", id);
-
             return "data" + id;
         }
         
         // POST api/data 
-        
         public void Post(object value)
         {
             Console.WriteLine("Post request received, data: {0}", value);
